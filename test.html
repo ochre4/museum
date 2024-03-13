@@ -414,6 +414,28 @@
                 '<h3 id="infoTextLeft">Зал 1</h3> <p id="infoTextLeft">В 1918 году были приняты «Положение о единой трудовой школе» и «Декларация о единой трудовой школе». Введён запрет на религиозные учения. Школа стала двухступенчатой...</p> <a href="http://localhost:8000/example/3more.html"> <button id="infoTextButton"><b>Подробнее</b></button> </a>',
                 ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' 
             ];
+            // Функция для проверки размеров окна и отображения текста или кнопки "Подробнее"
+            function adjustInfoVisibility() {
+                const infoText = document.getElementById('infoText');
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+
+                if (windowWidth > windowHeight) {
+                    // Если ширина больше высоты, показываем текст
+                    infoText.style.visibility = 'visible';
+                    infoText.style.opacity = 1;
+                } else {
+                    // В противном случае скрываем текст и показываем только кнопку "Подробнее"
+                    infoText.style.visibility = 'hidden';
+                    infoText.style.opacity = 0;
+                }
+            }
+            // Вызов функции при загрузке страницы
+            window.addEventListener('load', adjustInfoVisibility);
+
+            // Вызов функции при изменении размеров окна
+            window.addEventListener('resize', adjustInfoVisibility);
+            
             var mouse = new THREE.Vector2();
             var raycaster = new THREE.Raycaster();
             var selectedModel = null;
