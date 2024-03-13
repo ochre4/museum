@@ -384,7 +384,7 @@
                         document.getElementById("buttonContainer").style.filter = "blur(3px)";
                         document.querySelector('footer').style.filter = "blur(3px)";
                         document.getElementById("startButtonContainer").classList.add("show");
-                    }, 2000); // Этот таймер совпадает с продолжительностью анимации исчезновения
+                    }, 4000); // Этот таймер совпадает с продолжительностью анимации исчезновения
                 }, 2000); // Начинаем исчезновение через 2 секунды после загрузки страницы
                 setTimeout(function() {
                     // Уменьшаем блюр до 3px
@@ -394,7 +394,7 @@
                     // Показываем кнопку "НАЧАТЬ"
                     document.getElementById("loadingAnimation").style.display = "none";
                     document.getElementById("startButtonContainer").classList.add("show");
-                }, 6000); // 3 секунды задержки
+                }, 7000); // 3 секунды задержки
             });
             var gltfLoader = new GLTFLoader();
             var loadedModels = [];
