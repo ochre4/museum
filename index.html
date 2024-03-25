@@ -15,23 +15,9 @@
             padding-top: 0;
             overflow: auto;
         }
-        #container, #buttonContainer, footer {
+        #container, #buttonContainer {
             filter: blur(50px);
             transition: filter 1s ease;
-        }
-        h1 {
-            text-align: center;
-            z-index: 201; /* чтобы заглавие было над размытым фоном */
-            position: relative;
-        } 
-        footer {
-            background-color: #333;
-            color: #333;
-            padding: 10px;
-            text-align: center;
-            bottom: 0;
-            margin-top: 20px;
-            z-index: 70;
         }
         #container {
             /*width: 95vw;*/ 
@@ -232,7 +218,6 @@
             <!-- <button id="testButton" style="font-size: 25px;"><b>test</b></button> -->
         </div>
         <div id="otherButtonsContainer">
-            <button id="moreButtons" class="interactive-button"><b>=</b></button>
             <button id="previousCameraButton" class="interactive-button"><b><</b></button>  
             <button id="cameraButton" class="interactive-button"><b>></b></button>
         </div>
@@ -295,77 +280,7 @@
                     })
                     .start();
             }
-            var isButtonPressedOnce = false; 
-            toggleRotateButton.addEventListener('click', function() {
-                controls.enabled = !controls.enabled; // Переключает состояние вращения 
-                if (controls.enabled) {
-                    toggleRotateButton.style.backgroundColor = 'rgb(110, 101, 161)';
-                    // Сохраняем текущие позицию и направление взгляда перед входом в режим 360°
-                    initialCameraPosition = camera.position.clone();
-                    initialCameraLookAt = camera.getWorldDirection(new THREE.Vector3()).add(camera.position);
-                    // Перемещение камеры в режим 360°
-                    var toPosition = new THREE.Vector3(20, 20, 20);
-                    var toLookAt = new THREE.Vector3(0, 0, 0);
-                    moveCameraToPosition(toPosition, toLookAt);
-                    // Скрываем кнопки и информационное поле
-                    document.getElementById('previousCameraButton').style.opacity = "0";
-                    document.getElementById('cameraButton').style.opacity = "0";
-                    document.getElementById('infoText').style.opacity = "0";
-                    setTimeout(function() {
-                        document.getElementById('previousCameraButton').style.visibility = "hidden";
-                        document.getElementById('cameraButton').style.visibility = "hidden";
-                        document.getElementById('infoText').style.visibility = "hidden";
-                    }, 500);
-                } else {
-                    toggleRotateButton.style.backgroundColor = '';
-                    // Перед возвратом камеры обновляем cameraState до исходных значений
-                    var toState = {
-                        px: initialCameraPosition.x,
-                        py: initialCameraPosition.y,
-                        pz: initialCameraPosition.z,
-                        lx: initialCameraLookAt.x,
-                        ly: initialCameraLookAt.y,
-                        lz: initialCameraLookAt.z
-                    };
-                    new TWEEN.Tween(cameraState)
-                        .to(toState, 2000)
-                        .easing(TWEEN.Easing.Circular.Out)
-                        .onUpdate(function() {
-                            camera.position.set(cameraState.px, cameraState.py, cameraState.pz);
-                            camera.lookAt(cameraState.lx, cameraState.ly, cameraState.lz);
-                        })
-                        .start();
-                    // Показываем кнопки и информационное поле обратно
-                    document.getElementById('previousCameraButton').style.visibility = "visible";
-                    document.getElementById('cameraButton').style.visibility = "visible";
-                    document.getElementById('infoText').style.visibility = "visible";
-                    document.getElementById('previousCameraButton').style.opacity = "1";
-                    document.getElementById('cameraButton').style.opacity = "1";
-                    document.getElementById('infoText').style.opacity = "1";
-                }
-            });
-            var isButtonClicked = false; // переменная для отслеживания состояния кнопки
-            document.getElementById("moreButtons").addEventListener("click", function() {
-                var toggleRotateButton = document.getElementById("toggleRotateButton");
-                //var testButton = document.getElementById("testButton");
-                // Проверяем текущую видимость кнопок
-                var isVisible = toggleRotateButton.style.opacity === "1";
-                if (!isVisible) {
-                    // Если кнопки скрыты, делаем их видимыми и применяем класс .show
-                    toggleRotateButton.style.opacity = "1";
-                    toggleRotateButton.style.pointerEvents = "auto";
-                    //testButton.style.visibility = "visible";
-                    toggleRotateButton.classList.add("show");
-                    //testButton.classList.add("show");
-                } else {
-                    // Если кнопки видимы, скрываем их и удаляем класс .show
-                    toggleRotateButton.style.opacity = "0";
-                    toggleRotateButton.style.pointerEvents = "none";
-                    //testButton.style.visibility = "hidden";
-                    toggleRotateButton.classList.remove("show");
-                    //testButton.classList.remove("show");
-                }
-            });
+            
             document.addEventListener("DOMContentLoaded", function() {
                 setTimeout(function() {
                     var loadingAnimation = document.getElementById("loadingAnimation");
@@ -378,7 +293,6 @@
                         // Теперь уменьшаем блюр и показываем содержимое страницы
                         document.getElementById("container").style.filter = "blur(3px)";
                         document.getElementById("buttonContainer").style.filter = "blur(3px)";
-                        document.querySelector('footer').style.filter = "blur(3px)";
                         document.getElementById("startButtonContainer").classList.add("show");
                     }, 3000); // Этот таймер совпадает с продолжительностью анимации исчезновения
                 }, 3000); // Начинаем исчезновение через 2 секунды после загрузки страницы
@@ -386,7 +300,6 @@
                     // Уменьшаем блюр до 3px
                     document.getElementById("container").style.filter = "blur(3px)";
                     document.getElementById("buttonContainer").style.filter = "blur(3px)";
-                    document.querySelector('footer').style.filter = "blur(3px)";
                     // Показываем кнопку "НАЧАТЬ"
                     document.getElementById("loadingAnimation").style.display = "none";
                     document.getElementById("startButtonContainer").classList.add("show");
@@ -515,12 +428,6 @@
                     platform.position.set((i - 3) * 10, 0, 1); // Позиционируем платформу под моделью, центрирование относительно сцены
                     platform.userData.index = i; // platform index
                     scene.add(platform);
-                    // Создаем текстовый спрайт только для моделей с индексами от 0 до 7
-                    /*if (i < 7) {
-                        var textSprite = createTextSprite(`Зал ${loadedModels.length - i - 14}`);
-                        textSprite.position.set(platform.position.x, platform.position.y + 1, platform.position.z);
-                        scene.add(textSprite);
-                    }*/
                 }
                 moveCameraToModel(loadedModels[currentIndex], currentIndex);        
                 animate();
@@ -725,7 +632,6 @@
                 document.getElementById("startButtonContainer").style.display = "none";
                 document.getElementById("container").style.filter = "none";
                 document.getElementById("buttonContainer").style.filter = "none";
-                document.querySelector('footer').style.filter = "none";
                 // Перемещаем камеру к первой модели
                 isStartButtonPressed = true; 
                 // Включаем управление камерой после начала
@@ -734,7 +640,6 @@
                     moveCameraToModel(loadedModels[6], 6);
                 }
                 // Сделаем заголовок четким
-                document.querySelector("h1").style.filter = "none";
                 setTimeout(function() {
                     var buttons = document.querySelectorAll('.interactive-button');
                     buttons.forEach(function(button) {
@@ -745,8 +650,5 @@
             });      
         </script>
     </section>
-    <footer>
-        <p></p>
-    </footer>
 </body>
 </html>
