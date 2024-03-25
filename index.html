@@ -470,11 +470,11 @@
                 var toPosition = toModel.position.clone();
                 toPosition.y += 6; // Установите желаемую высоту, на которой должна находиться камера над моделью
                 toPosition.x += 6;
-                toPosition.z += 8;
+                toPosition.z += 6;
                 var toLookAt = toModel.position.clone();
                 toLookAt.y += 1;
                 toLookAt.x += 2;
-                toLookAt.z += 2;
+                toLookAt.z += 1;
                 var fromLookAt = new THREE.Vector3().setFromMatrixPosition(toModel.matrixWorld);
                 currentIndex = 6;
                 var toState = {
