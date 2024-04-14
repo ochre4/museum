@@ -166,11 +166,11 @@
             cursor: pointer;
             border-color: #333;
             color: #333;
-            box-shadow: 0.3em 0.3em 0 #2A2E77;
+            box-shadow: 0.3em 0.3em 0 #9e9b98;
             &:hover {
                 box-shadow: -0.3em -0.3em 0 #f4f4f4;
-                background-color: #2A2E77;
-                border-color: #2A2E77;
+                background-color: #9e9b98;
+                border-color: #9e9b98;
                 color: #f4f4f4;
             }
         }
@@ -205,11 +205,12 @@
     <div id="loadingAnimation"></div>
     <div id="infoText"></div>
     <div id="startButtonContainer">
-        <img src="viroLogo.png" width="350vh" height="auto" style="justify-content: center;"> 
+        <h1>Музей истории <br> развития образования <br> Воронежской области </h1>  
+        <a href="https://www.viro36.ru/?ysclid=luzw4p5k1w390705726"><img src="grayViroLogo.png" width="350vh" height="auto" style="justify-content: center;"></a>
         <div class="buttons-wrapper">
             <div><button class="click-btn" id="startButton" disabled><b>НАЧАТЬ</b></button></div>
-        </div>  
-        <!-- <button id="startBtn"><b>НАЧАТЬ</b></button> -->
+        </div>
+        <h2>при поддержке <a href="https://www.viro36.ru/?ysclid=luzw4p5k1w390705726">ВИРО им. Бунакова</a></h2>  
     </div>
     <div id="buttonContainer">
         <div id="rotateButtonContainer">
@@ -307,9 +308,10 @@
             var loadedModels = [];
             var modelPaths = [ //Загрузка моделей
                 // Здания 
-                '1shirokiy.glb', '2polukrug.glb', '3dvuhetaj.glb', '4polukrug.glb', '5dvuhetaj.glb', '6polukrug.glb', '7dvuhetaj.glb',
+                '1shirokiy.glb', '2stul1.glb', '3stul1.glb', '4dvuhetaj.glb', '5stul1.glb', '6shirokiy.glb', '7polukrug.glb',
                 // Пары акссесуаров
-                '1barometr.glb', '1scheti.glb', '2korabl.glb', '2chernila.glb', '3barometr.glb', '3scheti.glb', '4korabl.glb', '4chernila.glb', '5barometr.glb', '5scheti.glb', '6korabl.glb', '6chernila.glb', '7barometr.glb', '7scheti.glb'
+                '1stol.glb', '1parta1.glb', '2dvigatel.glb', '2stul2.glb', '3stul2.glb', '3forma.glb', '4stul.glb', '4portfel.glb', '5baraban.glb', '5stul2.glb', '6barometr.glb', '6scheti.glb', '7korabl.glb', '7chernila.glb',
+                '1parta2.glb','1parta3.glb', '1parta4.glb', '1parta5.glb', '1parta6.glb'
             ];
             var modelTexts = [   
                 '<h3 id="infoTextLeft">Зал 7</h3><p id="infoTextLeft">988 год — это время крещения Руси и зарождения школьного образования.</p> <p id="infoTextLeft">Князь Владимир Святославович издаёт указ: дети бояр должны учиться книжному делу...</p> <a href="https://ochre4.github.io/museum/1more.html"> <button id="infoTextButton"><b>Подробнее</b></button> </a>',
@@ -318,10 +320,8 @@
                 '<h3 id="infoTextLeft">Зал 4</h3> <p id="infoTextLeft">В 2012 году был принят действующий закон «Об образовании». Он считается одним из самых демократичных в мире, поскольку выделяет такую форму получения образования как семейное обучение...</p> <a href="https://ochre4.github.io/museum/4more.html"> <button id="infoTextButton"><b>Подробнее</b></button> </a>',  
                 '<h3 id="infoTextLeft">Зал 3</h3><p id="infoTextLeft">988 год — это время крещения Руси и зарождения школьного образования.</p> <p id="infoTextLeft">Князь Владимир Святославович издаёт указ: дети бояр должны учиться книжному делу...</p> <a href="https://ochre4.github.io/museum/5more.html"> <button id="infoTextButton"><b>Подробнее</b></button> </a>',
                 '<h3 id="infoTextLeft">Зал 2</h3><p id="infoTextLeft">До Петра I развитие образования шло медленно. Изредка открывались частные школы, а также была создана Славяно-греко-латинская академия — первое высшее учреждение в стране...</p> <a href="https://ochre4.github.io/museum/6more.html"> <button id="infoTextButton"><b>Подробнее</b></button> </a>',
-                '<h3 id="infoTextLeft">Зал 1</h3> <p id="infoTextLeft">В 1918 году были приняты «Положение о единой трудовой школе» и «Декларация о единой трудовой школе». Введён запрет на религиозные учения. Школа стала двухступенчатой...</p> <a href="https://ochre4.github.io/museum/7more.html"> <button id="infoTextButton"><b>Подробнее</b></button> </a>',
-                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' 
+                '<h3 id="infoTextLeft">Зал 1</h3> <p id="infoTextLeft">В 1918 году были приняты «Положение о единой трудовой школе» и «Декларация о единой трудовой школе». Введён запрет на религиозные учения. Школа стала двухступенчатой...</p> <a href="https://ochre4.github.io/museum/7more.html"> <button id="infoTextButton"><b>Подробнее</b></button> </a>'
             ];
-            
             var mouse = new THREE.Vector2();
             var raycaster = new THREE.Raycaster();
             var selectedModel = null;
@@ -332,66 +332,87 @@
                     var model = gltf.scene;
                     model.userData.index = index; // Добавляем индекс к userData
                     // Задаем координаты модели в зависимости от ее индекса
-                    if (index == 7) { // Барометр:7 около Широкого:0
-                        model.scale.set(0.6, 0.6, 0.6);
-                        model.position.set(-31.5, 0.2, 2.5); 
+                    if (index == 0) { // Для корректного перемещения камеры
+                        model.visible = false;
+                    }
+                    if (index == 7) { // Стол:7 около Широкого:0
+                        model.scale.set(0.35, 0.35, 0.35);
+                        model.position.set(-30.5, 0, -0.95); 
                         model.rotation.y = 230 * (Math.PI / 180); 
-                    } else if (index == 8) { // Счёты:8 около Широкого:0
-                        model.scale.set(0.5, 0.5, 0.5);
-                        model.position.set(-28.5, 0.2, 2.5); 
-                        model.rotation.z = 230 * (Math.PI / 180); 
-                        model.rotation.x = 90 * (Math.PI / 180);
-                    } else if (index == 9) { // Корабль:9 около Полукруга:1
+                    } else if (index == 8) { // Парта:8 около Широкого:0 | Левый ряд
+                        model.scale.set(0.25, 0.25, 0.25);
+                        model.position.set(-31.3, 0.2, 1.5); 
+                        model.rotation.y = 230 * (Math.PI / 180);
+                    } else if (index == 21) { // Парта:21 около Широкого:0 | Правый ряд, около стола
+                        model.scale.set(0.25, 0.25, 0.25);
+                        model.position.set(-29.7, 0.2, -0.3); 
+                        model.rotation.y = 230 * (Math.PI / 180);
+                    } else if (index == 22) { // Парта:22 около Широкого:0 | Левый ряд
+                        model.scale.set(0.25, 0.25, 0.25);
+                        model.position.set(-30.5, 0.2, 2.1); 
+                        model.rotation.y = 230 * (Math.PI / 180);
+                    } else if (index == 23) { // Парта:23 около Широкого:0 | Правый ряд
+                        model.scale.set(0.25, 0.25, 0.25);
+                        model.position.set(-28.9, 0.2, 0.3); 
+                        model.rotation.y = 230 * (Math.PI / 180);
+                    } else if (index == 24) { // Парта:24 около Широкого:0 | Левый ряд
+                        model.scale.set(0.25, 0.25, 0.25);
+                        model.position.set(-29.7, 0.2, 2.7); 
+                        model.rotation.y = 230 * (Math.PI / 180);
+                    } else if (index == 25) { // Парта:25 около Широкого:0 | Правый ряд
+                        model.scale.set(0.25, 0.25, 0.25);
+                        model.position.set(-28.1, 0.2, 0.9); 
+                        model.rotation.y = 230 * (Math.PI / 180);
+                    } else if (index == 9) { // Двигатель:9 около Здание:1
                         model.scale.set(0.8, 0.8, 0.8);
                         model.position.set(-21.5, 0.2, 2.5);
-                        model.rotation.y = 210 * (Math.PI / 180); 
-                    } else if (index == 10) { // Чернильница:10 около Полукруга:1
-                        model.scale.set(0.8, 0.8, 0.8);
+                        model.rotation.y = 225 * (Math.PI / 180); 
+                    } else if (index == 10) { // Компьютер:10 около Здание:1
+                        model.scale.set(0.4, 0.4, 0.4);
                         model.position.set(-18.4, 0.2, 2.7);
                         model.rotation.y = 60 * (Math.PI / 180); 
-                    } else if (index == 11) { // Барометр:11 около Двухэтажного:2
+                    } else if (index == 12) { // Аист:11 около ВИРО:2 ----ФОРМА----
                         model.scale.set(0.6, 0.6, 0.6);
                         model.position.set(-11.5, 0.2, 2.5); 
-                        model.rotation.y = 230 * (Math.PI / 180); 
-                    } else if (index == 12) { // Счёты:12 около Двухэтажного:2
-                        model.scale.set(0.5, 0.5, 0.5);
+                        model.rotation.y = 50 * (Math.PI / 180); 
+                    } else if (index == 11) { // Форма:12 около ВИРО:2 ----АИСТ----
+                        model.scale.set(0.4, 0.4, 0.4);
                         model.position.set(-8.5, 0.2, 2.5); 
-                        model.rotation.z = 230 * (Math.PI / 180); 
-                        model.rotation.x = 90 * (Math.PI / 180);
-                    } else if (index == 13) { // Корабль:13 около Полукруга:3
-                        model.scale.set(0.8, 0.8, 0.8);
+                        model.rotation.y = 2300 * (Math.PI / 180); 
+                    } else if (index == 13) { // Фильмоскоп:13 около Двухэтаж:3
+                        model.scale.set(0.4, 0.4, 0.4);
                         model.position.set(-1.5, 0.2, 2.5);
                         model.rotation.y = 210 * (Math.PI / 180);
-                    } else if (index == 14) { // Чернильница:14 около Полукруга:3
-                        model.scale.set(0.8, 0.8, 0.8);
-                        model.position.set(1.4, 0.2, 2.7);
-                        model.rotation.y = 60 * (Math.PI / 180); 
-                    } else if (index == 15) { // Барометр:15 около Двухэтажного:4
-                        model.scale.set(0.6, 0.6, 0.6);
+                    } else if (index == 14) { // Портфель:14 около Двухэтаж:3
+                        model.scale.set(0.4, 0.4, 0.4);
+                        model.position.set(1.1, 0.2, 2.3);
+                        model.rotation.z = 230 * (Math.PI / 180); 
+                        model.rotation.x = 270 * (Math.PI / 180);
+                    } else if (index == 15) { // Барабан:15 около Кинопроектор:4
+                        model.scale.set(0.7, 0.7, 0.7);
                         model.position.set(8.5, 0.2, 2.5); 
                         model.rotation.y = 230 * (Math.PI / 180); 
-                    } else if (index == 16) { // Счёты:16 около Двухэтажного:4
-                        model.scale.set(0.5, 0.5, 0.5);
+                    } else if (index == 16) { // Пион-форма:16 около Кинопроектор:4
+                        model.scale.set(0.4, 0.4, 0.4);
                         model.position.set(11.5, 0.2, 2.5); 
-                        model.rotation.z = 230 * (Math.PI / 180); 
-                        model.rotation.x = 90 * (Math.PI / 180);
-                    } else if (index == 17) { // Корабль:17 около Полукруга:5
-                        model.scale.set(0.8, 0.8, 0.8);
-                        model.position.set(18.5, 0.2, 2.5);
-                        model.rotation.y = 210 * (Math.PI / 180);
-                    } else if (index == 18) { // Чернильница:18 около Полукруга:5
-                        model.scale.set(0.8, 0.8, 0.8);
-                        model.position.set(21.4, 0.2, 2.7);
-                        model.rotation.y = 60 * (Math.PI / 180); 
-                    } else if (index == 19) { // Барометр:19 около Двухэтажного:6
-                        model.scale.set(0.6, 0.6, 0.6);
-                        model.position.set(28.5, 0.2, 2.5); 
                         model.rotation.y = 230 * (Math.PI / 180); 
-                    } else if (index == 20) { // Счёты:20 около Двухэтажного:6
+                    } else if (index == 17) { // Барометр:17 около Широкий:5
+                        model.scale.set(0.6, 0.6, 0.6);
+                        model.position.set(18.5, 0.2, 2.5);
+                        model.rotation.y = 230 * (Math.PI / 180);
+                    } else if (index == 18) { // Счёты:18 около Широкий:5
                         model.scale.set(0.5, 0.5, 0.5);
-                        model.position.set(31.5, 0.2, 2.5); 
+                        model.position.set(21.5, 0.2, 2.5);
                         model.rotation.z = 230 * (Math.PI / 180); 
                         model.rotation.x = 90 * (Math.PI / 180);
+                    } else if (index == 19) { // Корабль:19 около Полукруг:6
+                        model.scale.set(0.8, 0.8, 0.8);
+                        model.position.set(28.5, 0.2, 2.5); 
+                        model.rotation.y = 320 * (Math.PI / 180); 
+                    } else if (index == 20) { // Чернила:20 около Полукруг:6
+                        model.scale.set(0.8, 0.8, 0.8);
+                        model.position.set(31.4, 0.2, 2.7);  
+                        model.rotation.y = 60 * (Math.PI / 180);
                     } else {
                         model.position.set((index - 1.5) * 10 - 15, 0.1, 0); // Общая логика расстановки
                     }
