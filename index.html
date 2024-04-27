@@ -411,6 +411,7 @@
             // Делегируем событие клика на document для кнопок "Подробнее"
             document.addEventListener('click', function(event) {
                 if (event.target.classList.contains('infoTextButton')) {
+                    event.stopPropagation();
                     var videoUrl = event.target.getAttribute('data-video-url'); // Получаем URL видео
                     document.getElementById("modalVideo").src = videoUrl; // Устанавливаем URL видео в iframe
                     modal.style.display = "block"; // Отображаем модальное окно
@@ -419,6 +420,7 @@
 
             // Когда пользователь кликает на (x), закрыть модальное окно
             span.onclick = function() {
+                event.stopPropagation();
                 modal.style.display = "none";
                 document.getElementById("modalVideo").src = ""; // Очищаем src для остановки видео
             }
@@ -426,6 +428,7 @@
             // Когда пользователь кликает за пределами модального контента, закрыть его
             window.onclick = function(event) {
                 if (event.target == container) {
+                    event.stopPropagation();
                     modal.style.display = "none";
                     document.getElementById("modalVideo").src = ""; // Очищаем src для остановки видео
                 }
