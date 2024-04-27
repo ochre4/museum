@@ -441,6 +441,9 @@
                     var model = gltf.scene;
                     model.userData.index = index; // Добавляем индекс к userData
                     // Задаем координаты модели в зависимости от ее индекса
+                    if (index == 0) { // Для корректного перемещения камеры
+                        model.visible = false;
+                    }
                     if (index == 7) { // Стол:7 около Широкого:0
                         model.scale.set(0.35, 0.35, 0.35);
                         model.position.set(-30.5, 0, -0.95); 
