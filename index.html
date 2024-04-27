@@ -387,9 +387,9 @@
             var loadedModels = [];
             var modelPaths = [ //Загрузка моделей
                 // Здания 
-                '1shirokiy.glb', '2stul1.glb', '3stul1.glb', '4dvuhetaj.glb', '5stul1.glb', '6shirokiy.glb', '7polukrug.glb',
+                '1shirokiy.glb', '2komputer.glb', '3stul1.glb', '4dvuhetaj.glb', '5video.glb', '6shirokiy.glb', '7polukrug.glb',
                 // Пары акссесуаров
-                '1stol.glb', '1parta1.glb', '2dvigatel.glb', '2stul2.glb', '3stul2.glb', '3forma.glb', '4stul.glb', '4portfel.glb', '5baraban.glb', '5stul2.glb', '6barometr.glb', '6scheti.glb', '7korabl.glb', '7chernila.glb',
+                '1stol.glb', '1parta1.glb', '2dvigatel.glb', '2kubok.glb', '3stul2.glb', '3forma.glb', '4filmoscop.glb', '4portfel.glb', '5baraban.glb', '5pioner.glb', '6barometr.glb', '6scheti.glb', '7korabl.glb', '7chernila.glb',
                 '1parta2.glb','1parta3.glb', '1parta4.glb', '1parta5.glb', '1parta6.glb'
             ];
             var modelTexts = [   
@@ -441,9 +441,6 @@
                     var model = gltf.scene;
                     model.userData.index = index; // Добавляем индекс к userData
                     // Задаем координаты модели в зависимости от ее индекса
-                    if (index == 0) { // Для корректного перемещения камеры
-                        model.visible = false;
-                    }
                     if (index == 7) { // Стол:7 около Широкого:0
                         model.scale.set(0.35, 0.35, 0.35);
                         model.position.set(-30.5, 0, -0.95); 
@@ -472,14 +469,17 @@
                         model.scale.set(0.25, 0.25, 0.25);
                         model.position.set(-28.1, 0.2, 0.9); 
                         model.rotation.y = 230 * (Math.PI / 180);
-                    } else if (index == 9) { // Двигатель:9 около Здание:1
-                        model.scale.set(0.8, 0.8, 0.8);
+                    } else if (index == 1) { // ----КОМПУТЕР----
+                        model.scale.set(0.8, 0.8, 0.8)
+                        model.position.set(-19.75, 0.2, 0)
+                    } else if (index == 9) { // Двигатель:9 около Здание:1 
+                        model.scale.set(0.8, 0.8, 0.8); 
                         model.position.set(-21.5, 0.2, 2.5);
-                        model.rotation.y = 225 * (Math.PI / 180); 
-                    } else if (index == 10) { // Компьютер:10 около Здание:1
-                        model.scale.set(0.4, 0.4, 0.4);
-                        model.position.set(-18.4, 0.2, 2.7);
-                        model.rotation.y = 60 * (Math.PI / 180); 
+                        model.rotation.y = 45 * (Math.PI / 180); 
+                    } else if (index == 10) { // Кубок:10 около Здание:1
+                        model.scale.set(0.5, 0.5, 0.5);
+                        model.position.set(-18.2, 0.2, 3.0);
+                        model.rotation.y = 130 * (Math.PI / 180); 
                     } else if (index == 12) { // Аист:11 около ВИРО:2 ----ФОРМА----
                         model.scale.set(0.6, 0.6, 0.6);
                         model.position.set(-11.5, 0.2, 2.5); 
@@ -489,22 +489,22 @@
                         model.position.set(-8.5, 0.2, 2.5); 
                         model.rotation.y = 2300 * (Math.PI / 180); 
                     } else if (index == 13) { // Фильмоскоп:13 около Двухэтаж:3
-                        model.scale.set(0.4, 0.4, 0.4);
-                        model.position.set(-1.5, 0.2, 2.5);
-                        model.rotation.y = 210 * (Math.PI / 180);
+                        model.scale.set(0.5, 0.5, 0.5);
+                        model.position.set(-1.5, 0.2, 3.0);
+                        model.rotation.y = 60 * (Math.PI / 180);
                     } else if (index == 14) { // Портфель:14 около Двухэтаж:3
                         model.scale.set(0.4, 0.4, 0.4);
                         model.position.set(1.1, 0.2, 2.3);
                         model.rotation.z = 230 * (Math.PI / 180); 
                         model.rotation.x = 270 * (Math.PI / 180);
-                    } else if (index == 15) { // Барабан:15 около Кинопроектор:4
-                        model.scale.set(0.7, 0.7, 0.7);
+                    } else if (index == 16) { // Барабан:15 около Кинопроектор:4 ----ПФОРМА----
+                        model.scale.set(0.5, 0.5, 0.5);
                         model.position.set(8.5, 0.2, 2.5); 
-                        model.rotation.y = 230 * (Math.PI / 180); 
-                    } else if (index == 16) { // Пион-форма:16 около Кинопроектор:4
-                        model.scale.set(0.4, 0.4, 0.4);
-                        model.position.set(11.5, 0.2, 2.5); 
-                        model.rotation.y = 230 * (Math.PI / 180); 
+                        model.rotation.y = 50 * (Math.PI / 180); 
+                    } else if (index == 15) { // Пион-форма:16 около Кинопроектор:4 ----БАРАБАН----
+                        model.scale.set(0.6, 0.6, 0.6);
+                        model.position.set(11.5, 0.2, 3.0); 
+                        model.rotation.y = 210 * (Math.PI / 180); 
                     } else if (index == 17) { // Барометр:17 около Широкий:5
                         model.scale.set(0.6, 0.6, 0.6);
                         model.position.set(18.5, 0.2, 2.5);
