@@ -26,18 +26,6 @@
                 z-index: 1000; 
             }
         }
-        /* Применить только к мобильным устройствам в горизонтальной ориентации */
-        @media (orientation: landscape) and (max-width: 768px) {
-            .container {
-                width: 100%; /* Ширина контейнера равна ширине экрана */
-                height: calc(100vw * 9 / 16); /* Высота основана на ширине экрана и пропорции 16:9 */
-                max-height: 100vh; /* Максимальная высота не должна превышать высоту экрана */
-                overflow: hidden; /* Скрывать все, что выходит за рамки контейнера */
-                display: flex; /* Использовать flexbox для центрирования содержимого */
-                justify-content: center;
-                align-items: center;
-            }
-        }
         body {
             font-family: Arial, sans-serif;
             background-color: #333;
