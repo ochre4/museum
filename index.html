@@ -6,6 +6,26 @@
     <title>Музей истории развития образования Воронежской области</title>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+        #rotatePrompt {
+            display: none; /* Скрыто по умолчанию */
+            position: fixed;
+        }
+        @media (max-aspect-ratio: 1/1) {
+            #rotatePrompt {
+                display: flex;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.75);
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 24px;
+                z-index: 1000; 
+            }
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #333;
