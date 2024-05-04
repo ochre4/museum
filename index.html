@@ -35,7 +35,19 @@
             padding-top: 0;
             overflow: auto;
         }
-
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Убирает скролл */
+        }
+        #container {
+            width: 100vw;  /* Ширина вьюпорта */
+            height: 100vh; /* Высота вьюпорта */
+            position: relative; /* если необходимо */
+            overflow: hidden; /* предотвращение выхода контента за пределы */
+        }
         h1 {
             line-height: 1.5;
             text-align: center;
@@ -48,6 +60,7 @@
             transition: filter 1s ease;
         }
         #buttonContainer {
+            z-index: 2000;
             position: fixed;
             left: 1.5vw;
             bottom: 1.5vw;
