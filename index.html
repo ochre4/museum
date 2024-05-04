@@ -35,19 +35,7 @@
             padding-top: 0;
             overflow: auto;
         }
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Убирает скролл */
-        }
-        #container {
-            width: 100vw;  /* Ширина вьюпорта */
-            height: 100vh; /* Высота вьюпорта */
-            position: relative; /* если необходимо */
-            overflow: hidden; /* предотвращение выхода контента за пределы */
-        }
+
         h1 {
             line-height: 1.5;
             text-align: center;
@@ -58,11 +46,6 @@
         #container, #buttonContainer {
             filter: blur(50px);
             transition: filter 1s ease;
-        }
-        #container {
-            /*width: 95vw;*/ 
-            /*height: 80vh;*/
-            margin: 0 auto;
         }
         #buttonContainer {
             position: fixed;
@@ -780,7 +763,8 @@
                 // Устанавливаем видимость и доступность кнопок
                 document.getElementById('cameraButton').disabled = false;
                 document.getElementById('previousCameraButton').disabled = false;
-
+                // Установите начальный размер и аспект при загрузке
+                updateRendererAndCamera();
             });
             function animate() {
                 requestAnimationFrame(animate);
