@@ -344,6 +344,20 @@
             document.getElementById("container").appendChild(renderer.domElement);
             renderer.toneMapping = THREE.ReinhardToneMapping;
             renderer.toneMappingExposure = Math.pow(1.3, 4.0); // Экспозиция может быть настроена для достижения желаемого эффекта
+            function updateRendererAndCamera() {
+                var container = document.getElementById('container');
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+            }
+            
+            // Установите начальный размер и аспект при загрузке
+            updateRendererAndCamera();
+            
+            // Обработчик изменения размера окна
+            window.addEventListener('resize', updateRendererAndCamera);
+            
+            document.getElementById("container").appendChild(renderer.domElement);
             var planeMaterial = new THREE.MeshLambertMaterial({ // СЦЕНА
                 color: 0xf4f4f4, 
                 transparent: true, 
