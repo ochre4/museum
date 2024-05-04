@@ -35,6 +35,19 @@
             padding-top: 0;
             overflow: auto;
         }
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Убирает скролл */
+        }
+        #container {
+            width: 100vw;  /* Ширина вьюпорта */
+            height: 100vh; /* Высота вьюпорта */
+            position: relative; /* если необходимо */
+            overflow: hidden; /* предотвращение выхода контента за пределы */
+        }
         h1 {
             line-height: 1.5;
             text-align: center;
@@ -351,9 +364,6 @@
                 camera.updateProjectionMatrix();
             }
             
-            // Установите начальный размер и аспект при загрузке
-            updateRendererAndCamera();
-            
             // Обработчик изменения размера окна
             window.addEventListener('resize', updateRendererAndCamera);
             
@@ -468,7 +478,6 @@
                     document.getElementById("modalVideo").src = ""; // Очищаем src для остановки видео
                 }
             }
-            
             var mouse = new THREE.Vector2();
             var raycaster = new THREE.Raycaster();
             var selectedModel = null;
@@ -771,6 +780,8 @@
                 // Устанавливаем видимость и доступность кнопок
                 document.getElementById('cameraButton').disabled = false;
                 document.getElementById('previousCameraButton').disabled = false;
+                // Установите начальный размер и аспект при загрузке
+                updateRendererAndCamera();
             });
             function animate() {
                 requestAnimationFrame(animate);
@@ -794,6 +805,8 @@
                 renderer.setSize(container.offsetWidth, container.offsetHeight);
                 camera.aspect = container.offsetWidth / container.offsetHeight;
                 camera.updateProjectionMatrix();
+                // Установите начальный размер и аспект при загрузке
+                updateRendererAndCamera();
             });
             var isStartButtonPressed = false;
             document.getElementById("startButton").addEventListener("click", function() {
