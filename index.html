@@ -6,58 +6,60 @@
     <title>Музей истории развития образования Воронежской области</title>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
-        #rotatePrompt {
-            display: none; /* Скрыто по умолчанию */
-            position: fixed;
-        }
-        @media (max-aspect-ratio: 1/1) {
-            #rotatePrompt {
-                display: flex;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background-color: rgba(0, 0, 0, 0.75);
-                color: white;
-                justify-content: center;
-                align-items: center;
-                font-size: 24px; /* Уменьшен размер шрифта для мобильных устройств */
-                z-index: 1000; 
-            }
-        }
-        body {
+    
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             font-family: Arial, sans-serif;
             background-color: #333;
             color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            overflow: auto;
         }
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Убирает скролл */
+    
+        #rotatePrompt {
+            display: none; /* Скрыто по умолчанию */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.75);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            font-size: 36px;
+            z-index: 1000; 
         }
+    
+        @media (max-aspect-ratio: 1/1) {
+            #rotatePrompt {
+                display: flex;
+            }
+        }
+    
         #container {
-            width: 100vw;  /* Ширина вьюпорта */
-            height: 100vh; /* Высота вьюпорта */
-            position: relative; /* если необходимо */
-            overflow: hidden; /* предотвращение выхода контента за пределы */
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
         }
-        h1,
-        h2 {
+    
+        h1, h2 {
             line-height: 1.5;
             text-align: center;
         }
+    
         a {
             color: #f4f4f4;
         }
-        #container, #buttonContainer {
+    
+        #buttonContainer, #container {
             filter: blur(50px);
             transition: filter 1s ease;
         }
+    
         #buttonContainer {
             z-index: 2000;
             position: fixed;
@@ -67,12 +69,14 @@
             flex-direction: row;
             align-items: flex-end;
         }
+    
         #moreButtons, #previousCameraButton, #cameraButton {
             font-size: 4.5vh;
         }
+    
         #toggleRotateButton, #previousCameraButton, #cameraButton, #moreButtons, #testButton {
             opacity: 0;     
-            margin: 1vh 1.8vh 1vh 1.8vh;
+            margin: 1vh 1.8vh;
             width: 10vh;
             height: 7.5vh;
             text-align: center;
@@ -87,58 +91,66 @@
             pointer-events: none;
             cursor: pointer;
         }
+    
         #toggleRotateButton:hover, #previousCameraButton:hover, #cameraButton:hover, #moreButtons:hover {
             color: #f4f4f4;
             background-color: #5e77b1;
         }
+    
         .interactive-button {
             opacity: 0;
             transition: opacity 0.5s ease;
         }
+    
         #otherButtonsContainer {
             display: flex;
             flex-direction: row;
             align-items: center;
         }
+    
         #rotateButtonContainer {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            position: absolute;  
-            bottom: 0;  
+            position: absolute;
+            bottom: 0;
         }
+    
         #toggleRotateButton, #testButton {
             font-size: 3vh;
-            transform: translateY(0);  /* Изменено: кнопка изначально под кнопкой "=" */
+            transform: translateY(0);
             pointer-events: none;
         }
+    
         #toggleRotateButton.show, #testButton.show {
             opacity: 1;
-            transform: translateY(-10vh);  /* Когда кнопка видна, она возвращается на исходную позицию */
+            transform: translateY(-10vh);
             pointer-events: auto;
         }
-  
+    
         #startButtonContainer #startButton {
-            align-self: center; /* Центрирует элементы по горизонтали в контейнере */
-            margin: 10px 0; /* Добавляет небольшой отступ сверху и снизу для каждого элемента */
+            align-self: center;
+            margin: 10px 0;
         }
+    
         #startButtonContainer {
-            opacity: 0; /* Изначально скрыть кнопку */
-            transition: opacity 3s ease; /* Анимация появления */
-            position: fixed; 
-            width: 100%; 
-            height: 100%; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            z-index: 200; 
+            opacity: 0;
+            transition: opacity 3s ease;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
             backdrop-filter: blur(3px);
         }
-        /* После загрузки, применяем класс, который будет показывать кнопку */
+    
         #startButtonContainer.show {
             opacity: 1;
         }
+    
         #loadingAnimation {
             position: fixed;
             left: 50%;
@@ -149,7 +161,7 @@
             z-index: 300;
             transition: opacity 2s ease-out;
         }
-
+    
         #loadingAnimation::before {
             content: '';
             position: absolute;
@@ -159,9 +171,9 @@
             width: 100%;
             height: 100%;
             animation: spin 2s linear infinite;
-            box-sizing: border-box; /* Добавляем это свойство для корректного выравнивания по центру */
+            box-sizing: border-box;
         }
-
+    
         #loadingAnimation::after {
             content: '';
             position: absolute;
@@ -172,33 +184,32 @@
             background-position: center;
             background-attachment: fixed;
         }
-
-        /* Анимация вращения */
+    
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+    
         #startButton {
             cursor: pointer;
             border-color: #333;
             color: #333;
             box-shadow: 0.3em 0.3em 0 #3d5a9c;
-            &:hover {
-                box-shadow: -0.3em -0.3em 0 #f4f4f4;
-                background-color: #3d5a9c;
-                border-color: #3d5a9c;
-                color: #f4f4f4;
-            }
         }
+    
+        #startButton:hover {
+            box-shadow: -0.3em -0.3em 0 #f4f4f4;
+            background-color: #3d5a9c;
+            border-color: #3d5a9c;
+            color: #f4f4f4;
+        }
+    
         .click-btn {
             pointer-events: none;
             display: flex;
             width: 20vh;
             height: auto;
-            padding-left: 20%;
-            padding-right: 20%;
-            padding-top: 10%;
-            padding-bottom: 10%;
+            padding: 10%;
             justify-content: center;
             align-items: center;
             line-height: 35px;
@@ -209,11 +220,12 @@
             transition: all 0.35s;
             box-sizing: border-box;
         }
+    
         .buttons-wrapper {
             display: flex;
             flex-wrap: wrap;
         }
-
+    
         .modal {
             display: none;
             position: fixed;
@@ -224,55 +236,57 @@
             width: auto;
             overflow: auto;
         }
-
+    
         .modal-content {
-            position: relative; /* Добавьте относительное позиционирование */
+            position: relative;
             background-color: #dbdbdb;
             width: auto;
             height: auto;
             border: 1px solid #888;
         }
-
+    
         .close {
-            position: absolute; /* Позиционирование относительно .modal-content */
-            top: 0; /* Вверху контейнера */
-            right: 0; /* Справа от контейнера */
+            position: absolute;
+            top: 0;
+            right: 0;
             color: #fff;
-            font-size: 28px; /* Размер крестика */
+            font-size: 28px;
             font-weight: bold;
             cursor: pointer;
-            padding: 10px; /* Дополнительное пространство для удобного клика */
+            padding: 10px;
             margin: 2%;
             z-index: 100;
         }
-
-        .close:hover,
-        .close:focus {
-            color: black; /* Цвет при наведении для лучшей видимости */
-            text-decoration: none; /* Убираем подчеркивание при наведении */
+    
+        .close:hover, .close:focus {
+            color: black;
+            text-decoration: none;
         }
+    
         #modalVideo {
             display: block;
             position: relative;
-            width: 90vw; /* Ширина видео для мобильных устройств */
-            height: auto; /* Автоматический расчет высоты для сохранения пропорций */
+            width: 35vw;
+            height: 19.69vw;
         }
+    
         #infoText {
-            visibility: hidden; /* Добавлено */
-            opacity: 0; /* Убедитесь, что это свойство присутствует */
-            transition: opacity 0.5s ease-out; 
-            color:#333;
-            position: fixed; 
-            right: 2vw; 
-            top: 4.5vh; 
-            padding: 1% 2%; 
-            background: #dbdbdb; 
-            z-index: 100; 
-            width: 90vw; /* Ширина текста для мобильных устройств */
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+            color: #333;
+            position: fixed;
+            right: 2vw;
+            top: 4.5vh;
+            padding: 1% 2%;
+            background: #dbdbdb;
+            z-index: 100;
+            width: 35vw;
             height: auto;
-            text-align: right; 
-            font-size: 4vw; /* Размер шрифта для мобильных устройств */
+            text-align: right;
+            font-size: 1.1vw;
         }
+    
         .infoTextButton {
             display: inline-block;
             width: auto;
@@ -283,18 +297,114 @@
             color: #f4f4f4;
             background-color: #3d5a9c;
             transition: background-color 0.5s ease, color 0.5s ease;
-            font-size: 4vw; /* Размер шрифта для мобильных устройств */
+            font-size: 1.1vw;
             margin: 0 2% 2% 0;
-            padding: 0% 2.5% 0% 2.5%;
+            padding: 0 2.5%;
             border: 0;
             cursor: pointer;
         }
+    
         .infoTextButton:hover {
             color: #f4f4f4;
             background-color: #5e77b1;
         }
+    
         #infoTextLeft {
             text-align: left;
+        }
+    
+        @media (max-width: 768px) {
+            #container {
+                width: 100vw;
+                height: 100vh;
+            }
+    
+            #buttonContainer {
+                left: 1vw;
+                bottom: 1vw;
+            }
+    
+            #moreButtons, #previousCameraButton, #cameraButton {
+                font-size: 3.5vh;
+            }
+    
+                   #toggleRotateButton, #previousCameraButton, #cameraButton, #moreButtons, #testButton {
+                width: 8vh;
+                height: 6vh;
+                font-size: 3vh;
+            }
+    
+            #toggleRotateButton.show, #testButton.show {
+                transform: translateY(-8vh);
+            }
+    
+            #startButtonContainer #startButton {
+                font-size: 2vh;
+            }
+    
+            .click-btn {
+                width: 18vh;
+                font-size: 2vh;
+                padding: 8%;
+            }
+    
+            #modalVideo {
+                width: 80vw;
+                height: 45vw;
+            }
+    
+            #infoText {
+                width: 90vw;
+                font-size: 3.5vw;
+                padding: 2%;
+            }
+    
+            .infoTextButton {
+                font-size: 3vw;
+                padding: 1% 2%;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            #moreButtons, #previousCameraButton, #cameraButton {
+                font-size: 3vh;
+            }
+    
+            #toggleRotateButton, #previousCameraButton, #cameraButton, #moreButtons, #testButton {
+                width: 7vh;
+                height: 5vh;
+                font-size: 2.5vh;
+            }
+    
+            #toggleRotateButton.show, #testButton.show {
+                transform: translateY(-7vh);
+            }
+    
+            #startButtonContainer #startButton {
+                font-size: 1.5vh;
+            }
+    
+            .click-btn {
+                width: 16vh;
+                font-size: 1.8vh;
+                padding: 6%;
+            }
+    
+            #modalVideo {
+                width: 90vw;
+                height: 50.625vw;
+            }
+    
+            #infoText {
+                width: 95vw;
+                font-size: 4vw;
+                padding: 3%;
+            }
+    
+            .infoTextButton {
+                font-size: 4vw;
+                padding: 1% 1.5%;
+            }
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r132/three.min.js"></script> 
