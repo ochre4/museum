@@ -32,6 +32,14 @@
             font-size: 36px;
             z-index: 1000; 
         }
+
+        #previousCameraButton {
+            background-image: url('right.png'); 
+        }
+        
+        #cameraButton {
+            background-image: url('left.png'); 
+        }
     
         @media (max-aspect-ratio: 1/1) {
             #rotatePrompt {
@@ -114,18 +122,6 @@
             align-items: flex-start;
             position: absolute;
             bottom: 0;
-        }
-    
-        #toggleRotateButton, #testButton {
-            font-size: 3vh;
-            transform: translateY(0);
-            pointer-events: none;
-        }
-    
-        #toggleRotateButton.show, #testButton.show {
-            opacity: 1;
-            transform: translateY(-10vh);
-            pointer-events: auto;
         }
     
         #startButtonContainer #startButton {
@@ -328,14 +324,10 @@
                 font-size: 3.5vh;
             }
     
-                   #toggleRotateButton, #previousCameraButton, #cameraButton, #moreButtons, #testButton {
+            #toggleRotateButton, #previousCameraButton, #cameraButton, #moreButtons, #testButton {
                 width: 8vh;
                 height: 6vh;
                 font-size: 3vh;
-            }
-    
-            #toggleRotateButton.show, #testButton.show {
-                transform: translateY(-8vh);
             }
     
             #startButtonContainer #startButton {
@@ -374,10 +366,6 @@
                 width: 7vh;
                 height: 5vh;
                 font-size: 2.5vh;
-            }
-    
-            #toggleRotateButton.show, #testButton.show {
-                transform: translateY(-7vh);
             }
     
             #startButtonContainer #startButton {
@@ -428,8 +416,8 @@
             <!-- <button id="testButton" style="font-size: 25px;"><b>test</b></button> -->
         </div>
         <div id="otherButtonsContainer">
-            <button id="previousCameraButton" class="interactive-button"><b>⭠</b></button>  
-            <button id="cameraButton" class="interactive-button"><b>⭢</b></button>
+            <button id="previousCameraButton" class="interactive-button"><b> </b></button>  
+            <button id="cameraButton" class="interactive-button"><b> </b></button>
         </div>
     </div>
     <!-- Модальное окно для видео YouTube -->
@@ -485,8 +473,6 @@
             scene.add(plane);
             var controls = new OrbitControls(camera, renderer.domElement); //Вращение сцены
             controls.enabled = false; // Изначально отключено
-            /*controls.enableZoom = false; //Отключить масштабирование и перемещение сцены
-            controls.enablePan = false;*/
             var initialCameraPosition = camera.position.clone();
             var initialCameraLookAt = new THREE.Vector3(20, 20, 20); // Первоначальная точка взгляда | камеры
             function moveCameraToPosition(toPosition, toLookAt) { // Анимация перемещения камеры при включении режима 360
