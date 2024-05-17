@@ -367,12 +367,13 @@
                 padding: 0;
                 right: 0;
                 top: 0;
+                bottom: 100%;
             }
     
             .infoTextButton {
                 width: auto;
                 height: 6vh;
-                font-size: 1vh;
+                font-size: 2vh;
             }
         }
     </style>
@@ -726,8 +727,8 @@
                 if (isMobile) {
                     toPosition.y += 10; // Высота камеры для мобильных устройств
                     toPosition.z += 20; // Расстояние от модели для мобильных устройств
-                    toLookAt.y += 1;
-                    toLookAt.z += 1;
+                    toLookAt.y += -5;
+                    toLookAt.z += -5;
                 } else {
                     toPosition.y += 5; // Высота камеры для ПК
                     toPosition.x += 3;
