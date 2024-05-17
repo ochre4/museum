@@ -516,7 +516,7 @@
                     // Показываем кнопку "НАЧАТЬ"
                     document.getElementById("loadingAnimation").style.display = "none";
                     document.getElementById("startButtonContainer").classList.add("show");
-                }, 1000); // 4 секунды задержки
+                }, 5000); // 4 секунды задержки
             });
             var gltfLoader = new GLTFLoader();
             var loadedModels = [];
@@ -749,7 +749,7 @@
                 if (isMobile) {
                     toPosition.y += 10; // Высота камеры для мобильных устройств
                     toPosition.z += 20; // Расстояние от модели для мобильных устройств
-                    toLookAt.y += -5;
+                    toLookAt.y += -8;
                     toLookAt.z += -5;
                 } else {
                     toPosition.y += 5; // Высота камеры для ПК
