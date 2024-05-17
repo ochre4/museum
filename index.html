@@ -32,14 +32,6 @@
             font-size: 36px;
             z-index: 1000; 
         }
-
-        #previousCameraButton {
-            background-image: url('right.png'); 
-        }
-        
-        #cameraButton {
-            background-image: url('left.png'); 
-        }
     
         @media (max-aspect-ratio: 1/1) {
             #rotatePrompt {
@@ -82,7 +74,7 @@
             font-size: 4.5vh;
         }
     
-        #toggleRotateButton, #previousCameraButton, #cameraButton, #moreButtons, #testButton {
+        #previousCameraButton, #cameraButton, #moreButtons {
             opacity: 0;     
             margin: 1vh 1.8vh;
             width: 10vh;
@@ -99,7 +91,15 @@
             pointer-events: none;
             cursor: pointer;
         }
-    
+
+        #previousCameraButton {
+            background-image: url('right.png'); 
+        }
+        
+        #cameraButton {
+            background-image: url('left.png'); 
+        }
+        
         #toggleRotateButton:hover, #previousCameraButton:hover, #cameraButton:hover, #moreButtons:hover {
             color: #f4f4f4;
             background-color: #5e77b1;
