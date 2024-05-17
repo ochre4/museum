@@ -32,7 +32,15 @@
             font-size: 36px;
             z-index: 1000; 
         }
-    
+
+        #previousCameraButton {
+            background-image: url('right.png'); 
+        }
+        
+        #cameraButton {
+            background-image: url('left.png'); 
+        }
+        
         @media (max-aspect-ratio: 1/1) {
             #rotatePrompt {
                 display: flex;
@@ -90,14 +98,6 @@
             transition-delay: 0s, 0s; 
             pointer-events: none;
             cursor: pointer;
-        }
-
-        #previousCameraButton {
-            background-image: url('right.png'); 
-        }
-        
-        #cameraButton {
-            background-image: url('left.png'); 
         }
         
         #toggleRotateButton:hover, #previousCameraButton:hover, #cameraButton:hover, #moreButtons:hover {
