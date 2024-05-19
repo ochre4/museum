@@ -469,16 +469,16 @@
             // Загрузка изображения в качестве текстуры
             var textureLoader = new THREE.TextureLoader();
             var backgroundTexture = textureLoader.load('background2.jpg', function (texture) {
-                var aspect = texture.image.width / texture.image.height;
-                var imageAspect = window.innerWidth / window.innerHeight;
-                if (imageAspect > aspect) {
-                    texture.offset.set((1 - aspect / imageAspect) / 2, 0);
-                    texture.repeat.set(aspect / imageAspect, 1);
-                } else {
-                    texture.offset.set(0, (1 - imageAspect / aspect) / 2);
-                    texture.repeat.set(1, imageAspect / aspect);
-                }
-                scene.background = backgroundTexture;
+                var planeGeometry = new THREE.PlaneGeometry(2, 2, 1, 1);
+                var planeMaterial = new THREE.MeshBasicMaterial({
+                    map: texture,
+                    depthTest: false,
+                    depthWrite: false,
+                    side: THREE.DoubleSide
+                });
+                var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+                plane.scale.set(window.innerWidth / window.innerHeight, 1, 1);
+                scene.add(plane);
             });
             // Присвоение текстуры свойству background сцены
             scene.background = backgroundTexture;
