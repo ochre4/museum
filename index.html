@@ -477,7 +477,7 @@
                     side: THREE.DoubleSide
                 });
                 var plane = new THREE.Mesh(planeGeometry, planeMaterial);
-                plane.scale.set(window.innerWidth / window.innerHeight, 1, 1);
+                plane.scale.set(1, window.innerHeight / window.innerWidth, 1); // Масштабируем только по высоте
                 scene.add(plane);
             });
             // Присвоение текстуры свойству background сцены
